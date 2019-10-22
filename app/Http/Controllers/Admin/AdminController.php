@@ -67,7 +67,8 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::find($id);
+        return view('admin.edit')->with('employee', $employee);
     }
 
     /**
@@ -79,7 +80,15 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+           $employee = Employee::find($id);
+           $employee->username = $request->input('name');
+           $employee->gender = $request->input('gender');
+           $employee->email = $request->input('email');
+           $employee->position = $request->input('position');
+           $employee->address = $request->input('address');
+           $employee->birth = $request->input('birth');
+           $employee->save();
+           return redirect()->route('admin.employee');
     }
 
     /**

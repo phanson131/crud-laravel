@@ -692,44 +692,86 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row">
-        <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Birth</th>
-                      <th>Gender</th>
-                      <th>Email</th>
-                      <th>Position</th>
-                      <th>Address</th>
-                      <th>Delete</th>
-                      <th>Update</th>
-                      <th>Insert</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  @foreach($employee as $value)
-                      <tr>
-                      <td>{{ $value->id }}</td>
-                      <td>{{ $value->username }}</td>
-                      <td>{{ $value->birth }}</td>
-                      <td>{{ $value->gender }}</td>
-                      <td>{{ $value->email }}</td>
-                      <td>{{ $value->position }}</td>
-                      <td>{{ $value->address }}</td>
-                      <td><a href="{{ route('admin.employee.delete', $value->id) }}"><i class="fas fa-minus"></i></a></td>
-                      <td><a href="{{ route('admin.employee.edit', $value->id )}}"><i class="fas fa-tools"></i></a></td>
-                      <td><a href="{{ route('admin.employee.insert') }}"><i class="fas fa-plus"></i></a></td>
-                    </tr>
-                  @endforeach
-                  </tbody>
-                </table>
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Thêm Nhân Viên</h3>
               </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="{{ route('admin.employee.update',$employee['id']) }}" method="POST">
+              @csrf
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" value="{{ $employee['username'] }}" name="name" placeholder="Enter name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Birth</label>
+                     <input class="form-control" value="{{ $employee['birth'] }}" type="date" name="birth" required="">
+                  </div>          
+                 <div class="col-sm-12">
+                      <!-- radio -->
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Gender</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gender" value="male" checked="">
+                          <label class="form-check-label">Male</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gender" value="fale" checked="">
+                          <label class="form-check-label">Fale</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gender" value="other" checked="">
+                          <label class="form-check-label">Other</label>
+                        </div>
+                      </div>
+                    </div>
+
+                   <div class="col-sm-12">
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" value="{{ $employee['email'] }}" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" required="">
+                  </div>
+                  </div>
+
+                   <div class="col-sm-12">
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Position</label>
+                    <input type="text" class="form-control" name="position" value="{{ $employee['position'] }}"  id="exampleInputEmail1" placeholder="Enter position" required="">
+                  </div>
+                  </div>
+
+                   <div class="col-sm-12">
+                    <div class="form-group">
+                    <label for="exampleInputEmail1">Address</label>
+                    <input type="text" class="form-control" value="{{ $employee['address'] }}" name="address" id="exampleInputEmail1" placeholder="Enter address">
+                  </div>
+                  </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              
+            </div>
+        </form>
+            <!-- /.card -->
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div>
         </div>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
+  
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
