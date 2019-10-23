@@ -8,6 +8,13 @@ use App\Employee;
 
 class AdminController extends Controller
 {
+
+    protected $employee;
+    
+    public function __construct(Employee $employee)
+    {
+        $this->employee = $employee;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,15 +44,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-            $employee= new Employee;
-            $employee->username = $request->input('name');
-            $employee->gender = $request->input('gender');
-            $employee->email = $request->input('email');
-            $employee->position = $request->input('position');
-            $employee->address = $request->input('address');
-            $employee->birth = $request->input('birth');
-            $employee->save();
-            return redirect()->route('admin.employee');
+            // $employee= new Employee;
+            // $employee->username = $request->name;
+            // $employee->gender = $request->gender;
+            // $employee->email = $request->email;
+            // $employee->position = $request->position;
+            // $employee->address = $request->address;
+            // $employee->birth = $request->birth;
+         dd($request->all());
+         //$this->employee->create($request->all());
+        // return redirect()->route('admin.employee');
     }
 
     /**
@@ -80,15 +88,25 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-           $employee = Employee::find($id);
-           $employee->username = $request->input('name');
-           $employee->gender = $request->input('gender');
-           $employee->email = $request->input('email');
-           $employee->position = $request->input('position');
-           $employee->address = $request->input('address');
-           $employee->birth = $request->input('birth');
-           $employee->save();
+
+        //    $employee = Employee::find($id);
+        //    $employee->username = $request->input('name');
+        //    $employee->gender = $request->input('gender');
+        //    $employee->email = $request->input('email');
+        //    $employee->position = $request->input('position');
+        //    $employee->address = $request->input('address');
+        //    $employee->birth = $request->input('birth');
+        //    $employee->save();
+        //    $employee = $this->employee;
+        
+           $employee = $this->employee->find($id);
+           if(!$employee)
+             return back();
+
+           $data = $request->all();
+           $employee->update($data);
            return redirect()->route('admin.employee');
+           
     }
 
     /**

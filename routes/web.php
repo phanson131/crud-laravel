@@ -23,5 +23,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('edit/{id}','Admin\AdminController@edit')->name('admin.employee.edit');
     Route::post('update/{id}','Admin\AdminController@update')->name('admin.employee.update');
     //Route::get('edit','Admin\AdminController@edit')->name('admin.employee.edit');
-    Route::delete('delete/{id}','Admin\AdminController@destroy')->name('admin.employee.delete');
+    Route::get('delete/{id}','Admin\AdminController@destroy')->name('admin.employee.delete');
 });
+
+Route::resource('photos', 'PhotoController');
+
