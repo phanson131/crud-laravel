@@ -51,9 +51,12 @@ class AdminController extends Controller
             // $employee->position = $request->position;
             // $employee->address = $request->address;
             // $employee->birth = $request->birth;
-         dd($request->all());
-         //$this->employee->create($request->all());
-        // return redirect()->route('admin.employee');
+
+         $employee = $request->all();
+         if(!$employee)
+           return back();
+         $this->employee->create($employee);
+           return redirect()->route('admin.employee');
     }
 
     /**
@@ -75,7 +78,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::find($id);
+        $employee = $this->employee->find($id);
+        if (!$employee)
+           return back();
         return view('admin.edit')->with('employee', $employee);
     }
 
@@ -98,7 +103,7 @@ class AdminController extends Controller
         //    $employee->birth = $request->input('birth');
         //    $employee->save();
         //    $employee = $this->employee;
-        
+
            $employee = $this->employee->find($id);
            if(!$employee)
              return back();
@@ -117,6 +122,10 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        return "ok delete";
+        $employee = $this->employee->find($id);
+        if(!$employee)
+          return redirect()->route('admin.employee');
+        $employee->delete();
+        return redirect()->route('admin.employee');
     }
 }
